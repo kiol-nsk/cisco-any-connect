@@ -25,14 +25,6 @@ ip rule add table 128 from <set ip here, for example 10.39.186.17>
 ip route add table 128 to 10.39.0.0/16 dev enp0s5
 ip route add table 128 default via 10.39.1.1
 openvpn --mktun --dev tun1
-
-=====
-Creating aliases:
-vi .bashrc
-# optional
-# alias connect='echo $(cat /pass/to/passwd) | openconnect -v --authgroup=<Group> --user=<username> --no-dtls --interface=tun1 url'
-alias disconnect='pkill -SIGINT openconnect'
-alias status='cat /sys/class/net/tun1/operstate'
   
 ====
 Usage:
