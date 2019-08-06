@@ -1,0 +1,39 @@
+installing VPN client
+
+yum -y install epel-release
+yum -y install openvpn openconnect
+
+=====
+network hook, editing rc.local:
+
+chmod +x /etc/rc.d/rc.local
+[root@ibmindia ~]# cat /etc/rc.d/rc.local
+#!/bin/bash
+# THIS FILE IS ADDED FOR COMPATIBILITY PURPOSES
+#
+# It is highly advisable to create own systemd services or udev rules
+# to run scripts during boot instead of using this file.
+#
+# In contrast to previous versions due to parallel execution during boot
+# this script will NOT be run after all other services.
+#
+# Please note that you must run 'chmod +x /etc/rc.d/rc.local' to ensure
+# that this script will be executed during boot.
+
+touch /var/lock/subsys/local
+ip rule add table 128 from <set ip here, for example 10.39.186.17>
+ip route add table 128 to 10.39.0.0/16 dev enp0s5
+ip route add table 128 default via 10.39.1.1
+openvpn --mktun --dev tun1
+
+=====
+Creating aliases:
+vi .bashrc
+# optional
+# alias connect='echo $(cat /pass/to/passwd) | openconnect -v --authgroup=<Group> --user=<username> --no-dtls --interface=tun1 url'
+alias disconnect='pkill -SIGINT openconnect'
+alias status='cat /sys/class/net/tun1/operstate'
+  
+====
+Usage:
+openconnect -b --user=<specify_username_here> --no-dtls --interface=tun1 https://<specify_ip_or_url_here>
