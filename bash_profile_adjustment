@@ -1,0 +1,15 @@
+PASSWD=`cat /usr/local/etc/openconnect/password`
+
+alias connect='/bin/echo $PASSWD | openconnect $@ -b --authgroup=<if_required> --user=<if_required> --no-dtls --interface=tun1 https://<ip_or_url_here>'
+alias disconnect='pkill -SIGINT openconnect'
+alias status='cat /sys/class/net/tun1/operstate'
+
+echo -e "Usage: \n\t * 'connect' to attach to VPN;\n\t * 'disconnect' to disconnect;\nUse bashrc to edit password/username in case it does not match\n\n\t \n "
+
+if [ $(status) == "up" ]; then
+        echo -e "\033[00;32m VPN is UP"
+else
+        echo -e "\033[01;31m VPN is DOWN"
+fi
+
+echo -e "\033[00m"
