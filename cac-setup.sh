@@ -13,6 +13,7 @@ yum -y install openvpn openconnect
 # network hook, editing rc.local:
 
 chmod +x /etc/rc.d/rc.local
+echo "inserting info in /etc/rc.d/rc.local ..."
 echo "ip rule add table 128 from $adr" >> /etc/rc.d/rc.local
 echo "ip route add table 128 to $inet/$mask_2 dev $iname" >> /etc/rc.d/rc.local
 echo "ip route add table 128 default via $gate" >> /etc/rc.d/rc.local
@@ -37,4 +38,5 @@ fi
 
 echo -e "\033[00m"
 EOF
+echo "Inserting info in .bash_profile ..."
 echo "$String" > .bash_profile
