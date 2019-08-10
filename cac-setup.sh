@@ -18,7 +18,7 @@ echo "ip route add table 128 to $inet/$mask_2 dev $iname" >> /etc/rc.d/rc.local
 echo "ip route add table 128 default via $gate" >> /etc/rc.d/rc.local
 echo "openvpn --mktun --dev tun1" >> /etc/rc.d/rc.local
 
-echo "Important!!! Check .bash_profile file after eceution to correct aliases"
+echo "Important!!! Check .bash_profile file after execution to correct aliases"
 
 IFS='' read -r -d '' String <<"EOF"
 PASSWD=`cat /usr/local/etc/openconnect/password`
