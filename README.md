@@ -10,3 +10,4 @@ v.2 - shell script with magic.
 Download the script in home folder and run it with sudo.
 
 Both versions are kept here.
+Cheking git sync
